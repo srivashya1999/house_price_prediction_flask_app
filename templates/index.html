@@ -81,7 +81,7 @@
         document.getElementById("prediction").innerHTML="Wait Predicting Price!...";
         xhr.onreadystatechange=function(){
           if(xhr.readyState==XMLHttpRequest.DONE){
-            document.getElementById("prediction").innerHTML="Prediction: ₹"+xhr.responseText;
+            document.getElementById("prediction").innerHTML="Prediction: ₹ " +xhr.responseText;
           }
         };
 
@@ -89,9 +89,11 @@
         xhr.send(fd);
       }
     </script>
+
+<!--     
     <h1>Bangalore house price prediction</h1>
 
-<img src="../static/images/icons8-house-96.png" alt="House" />
+<img src="../static/images/icons8-house-96.png" alt="House" /> -->
 
     <!--http://127.0.0.1:5001/-->
     <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
