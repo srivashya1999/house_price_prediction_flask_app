@@ -10,10 +10,90 @@
 
     <title>House Price Prediction</title>
   </head>
-  <body>
-    <h1>Hello, world!</h1>
+  <body class="bg-dark">
+    <div class="container">
+      <div class="row">
+        <div class="card" style="width:100%; height:200%; margin-top:50px">
+          <div class="card-header" style="text-align: center">
+             <h1>Welcome to House Price Predictor</h1>
+          </div>
+          <div class="card-body" style="height: 300px">
+            <form method="post" accept-charset="utf-8">
+              <div class="row">
+                <div class="col-6 form-group" style="text-align:center">
+                   <label>
+                    <b>Select the Location:</b>
+                   </label>
+                   <select class="selectpicker form-control" id="location" name="location" required="1">
+                     {% for location in locations %}
+                        <option value="{{ location }}">{{ location }}</option>
+                     {% endfor %}
+                   </select>
+                </div>
 
-    
+                <div class="col-6 form-group" style="text-align:center">
+                  <label><b>Enter BHK:</b></label>
+                  <input type="text" class="form-control" id="bhk" name="bhk" placeholder="Enter BHK">
+                </div>
+
+              </div>
+
+              <div class="row">
+
+               <div class="col-6 form-group" style="text-align:center">
+                <label><b>Number of bathrooms:</b></label>
+                <input type="text" class="form-control" id="bath" name="bath" placeholder="Enter number of bathrooms">
+               </div>
+
+             <div class="col-6 form-group" style="text-align:center">
+              <label><b>Enter square feet:</b></label>
+              <input type="text" class="form-control" id="total_sqft" name="total_sqft" placeholder="Enter total sqft(minimum 800)">
+             </div>
+          
+            
+              </div>
+            </form>
+            <br>
+            <div class="col-nd-12 form-group">
+              <button class="btn btn-primary form-control" onclick="send_data()">Predict Price</button>
+            </div>
+            <div class="col-nd-12" style="text-align: center">
+              <h3><span id="prediction"></span></h3>
+            </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function form_handler(event)
+      {
+        event.preventDefault();
+      }
+      function send_data()
+      {
+        document.querySelector('form').addEventListener("submit",form_handler);
+        
+        var fd=new FormData(document.querySelector('form'));
+        var xhr=new XMLHttpRequest();
+        xhr.open('POST','/predict',true);
+        document.getElementById("prediction").innerHTML="Wait Predicting Price!...";
+        xhr.onreadystatechange=function(){
+          if(xhr.readyState==XMLHttpRequest.DONE){
+            document.getElementById("prediction").innerHTML="Prediction: ₹"+xhr.responseText;
+          }
+        };
+
+        xhr.onload=function(){};
+        xhr.send(fd);
+      }
+    </script>
+    <h1>Bangalore house price prediction</h1>
+
+<img src="../static/images/icons8-house-96.png" alt="House" />
+
+    <!--http://127.0.0.1:5001/-->
     <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
